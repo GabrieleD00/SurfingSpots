@@ -7,6 +7,9 @@
 
 import Foundation
 
+/**
+ Defines the possible weather conditions 
+ */
 enum WeatherConditions: String {
     case sunny = "Sunny"
     case cloudy = "Cloudy"

@@ -9,11 +9,15 @@ import Combine
 import SwiftUI
 import Foundation
 
+/**
+ `MainViewModel` is the class responsible for updating the UI and managing the UX
+ */
 class MainViewModel: ObservableObject {
     @Published var cities: [City] = []
     
     private let useCase: MainUseCaseInterface = MainUseCase()
     private var disposables = Set<AnyCancellable>()
+
     init() {
         Task {
             await useCase.getCities()
@@ -40,6 +44,11 @@ class MainViewModel: ObservableObject {
             .store(in: &disposables)
     }
     
+    /**
+     Updates the temperature of a random city
+     
+     - Parameter newTemperature: the latest temperature from the API
+     */
     private func updateRandomCity(newTemperature: Int) {
         if cities.isEmpty { return }
         

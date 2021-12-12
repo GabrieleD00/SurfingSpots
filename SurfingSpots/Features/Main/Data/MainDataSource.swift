@@ -8,27 +8,42 @@
 import Combine
 import Foundation
 
+/**
+ Defines the functions that the data source should implement
+ */
 protocol MainDataSourceInterface {
+    /**
+    Returns a publisher with the latest temperature from the API
+     */
     var updatedTemperature: AnyPublisher<Int?, Never> { get }
-    
+    /**
+    Returns a publisher with the list of cities from the API
+     */
     func getCities() async -> AnyPublisher<[City], NetworkError>
 }
 
+/**
+ Defines the possible error given by the url request
+ */
 enum NetworkError: Error {
     case emptyData
     case dataNotRight
 }
 
 /**
- `MainData`
+ `MainDataSource` is the class that manages to get the latest data from the API using the functions declared in MainDataSourceInterface
  */
 class MainDataSource: MainDataSourceInterface {
+    private let temperatureSubject = PassthroughSubject<Int?, Never>()
     private let citiesUrl = URL(string: "https://run.mocky.io/v3/652ceb94-b24e-432b-b6c5-8a54bc1226b6")
+
+    /*
+     I used a url with a specific range (0...60) to make the data more realistic
+     The original link is http://numbersapi.com/random/math
+     */
     private let temperaturesUrl = URL(string: "http://numbersapi.com/random?min=0&max=60")
     private let decoder = JSONDecoder()
-    
-    private let temperatureSubject = PassthroughSubject<Int?, Never>()
-    
+
     init() {
         Timer.scheduledTimer(withTimeInterval: 3, repeats: true) { _ in
             Task { [weak self] in
@@ -65,6 +80,9 @@ class MainDataSource: MainDataSourceInterface {
         }
     }
     
+    /**
+    Returns the latest temperature from the API
+     */
     private func getUpdatedTemperature() async -> Int? {
         let data = await getData(url: temperaturesUrl)
         
@@ -84,7 +102,9 @@ class MainDataSource: MainDataSourceInterface {
     }
     
     /**
-     - Parameter url: url
+     Returns the data retrieved from the given url
+
+     - Parameter url: the url where the data comes from
      */
     private func getData(url: URL?) async -> Data? {
         guard let url = url else {

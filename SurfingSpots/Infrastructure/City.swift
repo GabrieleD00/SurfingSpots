@@ -8,6 +8,9 @@
 import SwiftUI
 import Foundation
 
+/**
+ Defines the model used to represent a city
+ */
 struct City: Identifiable, Codable {
     let id = UUID()
     var name: String
