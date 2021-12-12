@@ -8,6 +8,8 @@
 import SwiftUI
 
 struct MainView: View {
+    @ObservedObject var mainVM = MainViewModel()
+
     var body: some View {
         VStack(spacing: 0) {
             
@@ -34,8 +36,8 @@ struct MainView: View {
             
             
             ScrollView {
-                ForEach(0..<4) { _ in
-                    CityCard()
+                ForEach(mainVM.cities) { city in
+                    CityCard(city: city)
                         .padding(.bottom, 8)
                 }
             }
