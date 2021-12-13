@@ -7,6 +7,7 @@
 
 import Foundation
 
+// This extension checks if the unit tests are running in the current thread
 extension Thread {
     var isRunningXCTest: Bool {
         if ProcessInfo().environment["APP_IS_TEST"] == "TRUE" {
