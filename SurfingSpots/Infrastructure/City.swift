@@ -11,7 +11,7 @@ import Foundation
 /**
  Defines the model used to represent a city
  */
-struct City: Identifiable, Codable {
+struct City: Identifiable, Codable, Equatable {
     let id = UUID()
     var name: String
     var temperature = Int.random(in: 0...60)
