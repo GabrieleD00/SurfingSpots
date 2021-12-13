@@ -11,7 +11,11 @@ import SwiftUI
 struct SurfingSpotsApp: App {
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            if Thread.current.isRunningXCTest {
+                EmptyView()
+            } else {
+                ContentView()
+            }
         }
     }
 }
