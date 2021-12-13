@@ -26,7 +26,7 @@ class MainRepository: MainRepositoryInterface {
     private let dataSource: MainDataSourceInterface = MainDataSource()
     
     func getUpdatedTemperature() -> AnyPublisher<Int?, Never> {
-        dataSource.updatedTemperature
+        dataSource.getUpdatedTemperature()
     }
     
     func getCities() async -> AnyPublisher<[City], NetworkError> {

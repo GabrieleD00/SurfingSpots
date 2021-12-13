@@ -15,7 +15,7 @@ protocol MainDataSourceInterface {
     /**
     Returns a publisher with the latest temperature from the API
      */
-    var updatedTemperature: AnyPublisher<Int?, Never> { get }
+    func getUpdatedTemperature() -> AnyPublisher<Int?, Never>
     /**
     Returns a publisher with the list of cities from the API
      */
@@ -59,7 +59,7 @@ class MainDataSource: MainDataSourceInterface {
         }
     }
     
-    var updatedTemperature: AnyPublisher<Int?, Never> {
+    func getUpdatedTemperature() -> AnyPublisher<Int?, Never> {
         return temperatureSubject.eraseToAnyPublisher()
     }
     

@@ -8,7 +8,7 @@
 import Foundation
 
 /**
- This layer is needed to decode the data from the api
+ This layer is needed to decode the data from the API
  */
 struct Cities: Codable {
     var cities: [City]
