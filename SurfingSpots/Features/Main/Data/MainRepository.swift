@@ -23,7 +23,7 @@ protocol MainRepositoryInterface {
  `MainRepository` is the class that takes the data from the data source and give it to the use case
  */
 class MainRepository: MainRepositoryInterface {
-    private let dataSource: MainDataSourceInterface = MainDataSource()
+    private let dataSource: MainDataSourceInterface = Thread.current.isRunningXCTest ? MockedMainDataSource() : MainDataSource()
     
     func getUpdatedTemperature() -> AnyPublisher<Int?, Never> {
         dataSource.getUpdatedTemperature()
